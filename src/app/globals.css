@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+    --dt_color-plt-lagoon-0: 0,26,45;
+      --dt_color-plt-lagoon-5: 0,47,75;
+      --dt_color-plt-lagoon-10: 0,61,97;
+      --dt_color-plt-lagoon-20: 0,77,118;
+      --dt_color-plt-lagoon-30: 3,102,150;
+      --dt_color-plt-lagoon-40: 10,119,167;
+      --dt_color-plt-lagoon-50: 22,153,202;
+      --dt_color-plt-lagoon-60: 43,165,206;
+      --dt_color-plt-lagoon-70: 88,189,222;
+      --dt_color-plt-lagoon-80: 135,204,227;
+      --dt_color-plt-lagoon-90: 174,221,236;
+      --dt_color-plt-lagoon-100: 216,238,246;
+  }
+}
+@layer components {
+  .card {
+    @apply border border-secondary rounded-lg p-4;
+  }
+  /* ... */
+}
+
+
