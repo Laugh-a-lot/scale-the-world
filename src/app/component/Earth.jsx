@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import versor from "versor";
 import * as topojson from "topojson";
+import createBoxShadow from "../../utils/createBoxShadow";
 
 const Earth = ({
   countriesTopoJson,
@@ -11,7 +12,7 @@ const Earth = ({
   selectedCountry,
   setSelectedCountryDetails,
 }) => {
-  function createEarth() {
+  async function createEarth() {
     const width = 500;
     const sphere = { type: "Sphere" };
 
@@ -23,7 +24,7 @@ const Earth = ({
       const dy = Math.ceil(y1 - y0),
         l = Math.min(Math.ceil(x1 - x0), dy);
       projection.scale((projection.scale() * (l - 1)) / l).precision(0.2);
-      return dy+"px";
+      return dy + "px";
     };
     const dom = d3
       .select("#DOM")
@@ -73,13 +74,14 @@ const Earth = ({
         await additionalComponents(context, path);
       }
       if (selectedCountry) {
-        console.log("elarioe", selectedCountry);
-        context.beginPath(),
-          path(selectedCountry.geoData),
-          (context.fillStyle = "#f00"),
-          context.fill();
+        createBoxShadow(
+          context,
+          () => path(selectedCountry.geoData),
+          "#83EEFF",
+          "#83EEFF"
+        );
       }
-      // context.beginPath(), path(sphere), context.stroke();
+      return context.canvas
     }
 
     let ctx = d3
@@ -90,8 +92,26 @@ const Earth = ({
           .on("end.render", () => render(countriesTopoJson))
       )
       .call(() => render(countriesTopoJson))
-      .on("click", (a, b) => clickCountry(a))
+      .on("click", (event) => {
+        // render(countriesTopoJson);
+        clickCountry(event);
+      })
       .node();
+
+    await d3
+      .transition()
+      .duration(5000)
+      .tween("rotate", () => {
+        const r = d3.interpolate(projection.rotate(), [360, 0, 0]); // Rotating 360 degrees over time
+        return (t) => {
+          projection.rotate(r(t));
+          render(countriesTopoJson);
+        };
+      })
+    let p1,
+      p2 = [0, 0],
+      r1,
+      r2 = [0, 0, 0];
 
     async function clickCountry(click) {
       const [x, y] = projection.invert([
@@ -102,12 +122,10 @@ const Earth = ({
         countriesTopoJson,
         countriesTopoJson.objects.countries
       );
+
       for (const d of feature.features) {
         if (d3.geoContains(d, [x, y])) {
-          context.beginPath(),
-            path(d),
-            (context.fillStyle = "#f00"),
-            context.fill();
+          createBoxShadow(context, () => path(d), "#83EEFF", "#83EEFF");
           setSelectedCountryDetails(d);
           break;
         }
@@ -172,7 +190,7 @@ const Earth = ({
   }, []);
 
   return (
-    <div className="w-min self-center">
+    <div className="w-min my-2 self-center">
       <canvas id="DOM" className="cursor-move"></canvas>
     </div>
   );

@@ -20,7 +20,26 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "red-grad": "url(#menacingRed)",
       },
+      // keyframes: {
+      //   glow: {
+      //     "0%": {
+      //       filter: "drop-shadow(0 0 5px #FF0000)",
+      //     },
+      //     "50%": {
+      //       filter:
+      //         "drop-shadow(0 0 20px #FF0000)" /* Midway shadow color and size */,
+      //     },
+      //     "100%": {
+      //       filter:
+      //         "drop-shadow(0 0 5px #FF0000)" /* Final shadow color and size */,
+      //     },
+      //   },
+      // },
+      // animation: {
+      //   glow: "glow 1s ease-in-out infinite",
+      // },
     },
   },
   plugins: [],

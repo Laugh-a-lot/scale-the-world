@@ -13,10 +13,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={font.className + " h-screen bg-background text-secondary"}
+        className={
+          font.className +
+          " h-screen bg-background text-secondary max-h-screen bg-no-repeat"
+        }
       >
         <Navbar />
-        <main className="flex flex-col p-8">{children}</main>
+        <main className="flex flex-col p-4 pb-0">{children}</main>
       </body>
     </html>
   );
