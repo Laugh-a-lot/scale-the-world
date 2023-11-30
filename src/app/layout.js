@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         }
       >
         <Navbar />
-        <main className="flex flex-col p-4 pb-0">{children}</main>
+        <main className="flex flex-col p-4 h-[92%] overflow-y-scroll">{children}</main>
       </body>
     </html>
   );

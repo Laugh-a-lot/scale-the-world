@@ -29,17 +29,10 @@ function getColorForAQI(aqiValue) {
   } else if (aqiValue >= 401 && aqiValue <= 500) {
     return colors[6]; // Very Hazardous (401-500)
   } else {
-    return colors[0]; // Default to black for values outside defined ranges
+    return "#ddd"; // Default to black for gray outside defined ranges
   }
 }
 
-async function additionalComponents(context) {
-  return (
-    <div>
-      <h1>Air Quality</h1>
-    </div>
-  );
-}
 
 const AirQuality = ({ topoJSONdata, airQualityData }) => {
   const legendRef = useRef();
@@ -110,7 +103,6 @@ const AirQuality = ({ topoJSONdata, airQualityData }) => {
         <Earth
           countriesTopoJson={topoJSONdata}
           fillLand={fillLand}
-          additionalComponents={additionalComponents}
           selectedCountry={selectedCountry}
           setSelectedCountryDetails={setSelectedCountryDetails}
         />

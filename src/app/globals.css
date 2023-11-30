@@ -20,6 +20,9 @@
       --dt_color-plt-lagoon-90: 174,221,236;
       --dt_color-plt-lagoon-100: 216,238,246;
   }
+  html {
+    overflow: auto;
+  }
 }
 @layer components {
   .card {
