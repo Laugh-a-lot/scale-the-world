@@ -68,13 +68,15 @@ const InflationDashboard = ({ topoJSONdata, inflationData }) => {
         </h3>
       </div>
       <div className="card flex flex-col basis-3/4">
-        <Legend
-          color={d3.scaleOrdinal(
-            ["0-3%", "3-5%", "5-7%", "7-10%", "10-15%", "15-20%", ">20%"],
-            colors
-          )}
-          options={{ title: "Inflation Rate" }}
-        />
+        <div className="w-full">
+          <Legend
+            color={d3.scaleOrdinal(
+              ["0-3%", "3-5%", "5-7%", "7-10%", "10-15%", "15-20%", ">20%"],
+              colors
+            )}
+            options={{ title: "Inflation Rate" }}
+          />
+        </div>
         <Swatches
           color={d3
             .scaleOrdinal()

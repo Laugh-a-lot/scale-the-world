@@ -68,6 +68,7 @@ const AirQuality = ({ topoJSONdata, airQualityData }) => {
         </h3>
       </div>
       <div className="card flex flex-col basis-3/4">
+      <div className="w-full">
         <Legend
           color={d3.scaleOrdinal(
             [
@@ -82,7 +83,7 @@ const AirQuality = ({ topoJSONdata, airQualityData }) => {
             colors
           )}
           options={{ title: "AQI" }}
-        />
+        /></div>
         <Swatches
           color={d3
             .scaleOrdinal()

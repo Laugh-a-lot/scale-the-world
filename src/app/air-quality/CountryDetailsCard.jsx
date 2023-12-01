@@ -118,7 +118,7 @@ const CountryDetailsCard = ({ countryData }) => {
             <b className="text-4xl">{countryData?.overall_aqi}</b> AQI{" "}
           </span>
 
-          <div className="w-full flex gap-2 p-4 px-0 mb-4">
+          <div className="w-full justify-between flex gap-2 p-4 px-0 mb-4">
             {Object.keys(countryInfo).map((ele, idx) => (
               <div key={ele} className="flex flex-col items-center text-center">
                 <bold>{[countryData[ele], idx < 2 && "°"]} </bold>
