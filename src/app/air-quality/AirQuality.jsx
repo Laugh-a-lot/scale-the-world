@@ -33,9 +33,8 @@ function getColorForAQI(aqiValue) {
   }
 }
 
-
 const AirQuality = ({ topoJSONdata, airQualityData }) => {
-  const legendRef = useRef();
+  const legendWrapperRef = useRef();
   const [selectedCountry, setSelectedCountry] = useState(null);
   async function fillLand(context, path) {
     const feature = topojson.feature(
@@ -67,23 +66,32 @@ const AirQuality = ({ topoJSONdata, airQualityData }) => {
           Air Quality
         </h3>
       </div>
-      <div className="card flex flex-col basis-3/4">
-      <div className="w-full">
-        <Legend
-          color={d3.scaleOrdinal(
-            [
-              "<50",
-              "50-100",
-              "101-150",
-              "151-200",
-              "201-300",
-              "301-400",
-              "401-500",
-            ],
-            colors
-          )}
-          options={{ title: "AQI" }}
-        /></div>
+      <div className="card flex flex-col md:basis-3/4 max-w-full">
+        <Earth
+          countriesTopoJson={topoJSONdata}
+          fillLand={fillLand}
+          selectedCountry={selectedCountry}
+          setSelectedCountryDetails={setSelectedCountryDetails}
+        />
+        <div className="w-full">
+          <Legend
+            color={d3.scaleOrdinal(
+              [
+                "<50",
+                "50-100",
+                "101-150",
+                "151-200",
+                "201-300",
+                "301-400",
+                "401-500",
+              ],
+              colors
+            )}
+            options={{
+              title: "AQI",
+            }}
+          />
+        </div>
         <Swatches
           color={d3
             .scaleOrdinal()
@@ -100,12 +108,6 @@ const AirQuality = ({ topoJSONdata, airQualityData }) => {
           options={{
             columns: "100px",
           }}
-        />
-        <Earth
-          countriesTopoJson={topoJSONdata}
-          fillLand={fillLand}
-          selectedCountry={selectedCountry}
-          setSelectedCountryDetails={setSelectedCountryDetails}
         />
       </div>
       <CountryDetailsCard countryData={selectedCountry} />

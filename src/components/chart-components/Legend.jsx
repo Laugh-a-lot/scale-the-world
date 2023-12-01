@@ -35,7 +35,8 @@ export default function Legend({ color, options }) {
       .attr("height", height)
       .attr("viewBox", [0, 0, width, height])
       .style("overflow", "visible")
-      .style("display", "block");
+      .style("display", "block")
+      .style('width', "100%");
 
     let tickAdjust = (g) =>
       g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height);

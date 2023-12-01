@@ -61,13 +61,19 @@ const InflationDashboard = ({ topoJSONdata, inflationData }) => {
   }
 
   return (
-    <div className="flex gap-4 flex-wrap">
+    <div className="flex gap-2 flex-wrap">
       <div className="basis-full">
-        <h3 className="card text-2xl font-semibold w-min border-2 px-4 py-1 whitespace-nowrap rounded-full">
+        <h3 className="card text-2xl font-semibold border-2 px-4 py-2 rounded-full">
           Inflation: end of period consumer prices 2023
         </h3>
       </div>
-      <div className="card flex flex-col basis-3/4">
+      <div className="card flex flex-col md:basis-3/4 max-w-full">
+        <Earth
+          countriesTopoJson={topoJSONdata}
+          fillLand={fillLand}
+          selectedCountry={selectedCountry}
+          setSelectedCountryDetails={setSelectedCountryDetails}
+        />
         <div className="w-full">
           <Legend
             color={d3.scaleOrdinal(
@@ -93,13 +99,6 @@ const InflationDashboard = ({ topoJSONdata, inflationData }) => {
           options={{
             columns: "150px",
           }}
-        />
-
-        <Earth
-          countriesTopoJson={topoJSONdata}
-          fillLand={fillLand}
-          selectedCountry={selectedCountry}
-          setSelectedCountryDetails={setSelectedCountryDetails}
         />
       </div>
       <InflationDetailsCard countryData={selectedCountry} />

@@ -12,25 +12,24 @@ const Earth = ({
   selectedCountry,
   setSelectedCountryDetails,
 }) => {
+  const width = window.innerWidth > 500 ? 500 : 300;
+  const sphere = { type: "Sphere" };
+  const projection = d3.geoOrthographic().precision(0.1);
+  const height = () => {
+    const [[x0, y0], [x1, y1]] = d3
+      .geoPath(projection.fitWidth(width, sphere))
+      .bounds(sphere);
+    const dy = Math.ceil(y1 - y0),
+      l = Math.min(Math.ceil(x1 - x0), dy);
+    projection.scale((projection.scale() * (l - 1)) / l).precision(0.2);
+    return dy + "px";
+  };
   async function createEarth() {
-    const width = 500;
-    const sphere = { type: "Sphere" };
-
-    const projection = d3.geoOrthographic().precision(0.1);
-    const height = () => {
-      const [[x0, y0], [x1, y1]] = d3
-        .geoPath(projection.fitWidth(width, sphere))
-        .bounds(sphere);
-      const dy = Math.ceil(y1 - y0),
-        l = Math.min(Math.ceil(x1 - x0), dy);
-      projection.scale((projection.scale() * (l - 1)) / l).precision(0.2);
-      return dy + "px";
-    };
     const dom = d3
       .select("#DOM")
       .attr("width", width + "px")
       .attr("height", height())
-      // .style("width", "500px")
+      .style("width", "100%")
       // .style("height", height() + "px")
       .node();
     const context = dom.getContext("2d");
@@ -81,7 +80,7 @@ const Earth = ({
           "#83EEFF"
         );
       }
-      return context.canvas
+      return context.canvas;
     }
 
     let ctx = d3
@@ -107,7 +106,7 @@ const Earth = ({
           projection.rotate(r(t));
           render(countriesTopoJson);
         };
-      })
+      });
     let p1,
       p2 = [0, 0],
       r1,
@@ -190,7 +189,7 @@ const Earth = ({
   }, []);
 
   return (
-    <div className="w-min my-2 self-center">
+    <div className={`w-full max-w-[${width}px] my-2 self-center`}>
       <canvas id="DOM" className="cursor-move"></canvas>
     </div>
   );
