@@ -12,7 +12,8 @@ const Earth = ({
   selectedCountry,
   setSelectedCountryDetails,
 }) => {
-  const width = window.innerWidth > 500 ? 500 : 300;
+  const width =
+    typeof window !== "undefined" && window.innerWidth > 500 ? 500 : 300;
   const sphere = { type: "Sphere" };
   const projection = d3.geoOrthographic().precision(0.1);
   const height = () => {
