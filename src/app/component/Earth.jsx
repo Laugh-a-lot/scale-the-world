@@ -99,7 +99,7 @@ const Earth = ({
 
     await d3
       .transition()
-      .duration(5000)
+      .duration(3000)
       .tween("rotate", () => {
         const r = d3.interpolate(projection.rotate(), [360, 0, 0]); // Rotating 360 degrees over time
         return (t) => {
@@ -107,10 +107,6 @@ const Earth = ({
           render(countriesTopoJson);
         };
       });
-    let p1,
-      p2 = [0, 0],
-      r1,
-      r2 = [0, 0, 0];
 
     async function clickCountry(click) {
       const [x, y] = projection.invert([
@@ -189,7 +185,11 @@ const Earth = ({
   }, []);
 
   return (
-    <div className={`w-full max-w-[${width}px] my-2 self-center`}>
+    <div
+      className={`w-full ${
+        width === 300 ? "max-w-[300px]" : "max-w-[500px]"
+      } my-2 self-center`}
+    >
       <canvas id="DOM" className="cursor-move"></canvas>
     </div>
   );

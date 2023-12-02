@@ -34,7 +34,6 @@ function getColorForAQI(aqiValue) {
 }
 
 const AirQuality = ({ topoJSONdata, airQualityData }) => {
-  const legendWrapperRef = useRef();
   const [selectedCountry, setSelectedCountry] = useState(null);
   async function fillLand(context, path) {
     const feature = topojson.feature(
