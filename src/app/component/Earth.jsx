@@ -12,6 +12,7 @@ const Earth = ({
   selectedCountry,
   setSelectedCountryDetails,
 }) => {
+  const [isServer, setIsServer] = useState(false);
   const width =
     typeof window !== "undefined" && window.innerWidth > 500 ? 500 : 300;
   const sphere = { type: "Sphere" };
@@ -187,9 +188,16 @@ const Earth = ({
 
   return (
     <div
-      className={`w-full ${
-        width === 300 ? "max-w-[300px]" : "max-w-[500px]"
-      } my-2 self-center`}
+      className={`w-full 
+      my-2 self-center`}
+      style={{
+        maxWidth: !isServer ? (window.innerWidth > 500 ? 500 : 300) : 500,
+      }}
+      // ${
+      // typeof window !== "undefined" && window.innerWidth > 500
+      // ? "max-w-[500px]"
+      // : "max-w-[300px]"
+      // }
     >
       <canvas id="DOM" className="cursor-move"></canvas>
     </div>
