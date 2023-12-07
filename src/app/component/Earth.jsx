@@ -13,20 +13,26 @@ const Earth = ({
   setSelectedCountryDetails,
 }) => {
   const [isServer, setIsServer] = useState(false);
-  const width =
-    typeof window !== "undefined" && window.innerWidth > 500 ? 500 : 300;
+
   const sphere = { type: "Sphere" };
   const projection = d3.geoOrthographic().precision(0.1);
-  const height = () => {
-    const [[x0, y0], [x1, y1]] = d3
-      .geoPath(projection.fitWidth(width, sphere))
-      .bounds(sphere);
-    const dy = Math.ceil(y1 - y0),
-      l = Math.min(Math.ceil(x1 - x0), dy);
-    projection.scale((projection.scale() * (l - 1)) / l).precision(0.2);
-    return dy + "px";
-  };
+
   async function createEarth() {
+    const width =
+      typeof window !== "undefined"
+        ? window.innerWidth > 500
+          ? 500
+          : 300
+        : 500;
+    const height = () => {
+      const [[x0, y0], [x1, y1]] = d3
+        .geoPath(projection.fitWidth(width, sphere))
+        .bounds(sphere);
+      const dy = Math.ceil(y1 - y0),
+        l = Math.min(Math.ceil(x1 - x0), dy);
+      projection.scale((projection.scale() * (l - 1)) / l).precision(0.2);
+      return dy + "px";
+    };
     const dom = d3
       .select("#DOM")
       .attr("width", width + "px")
@@ -34,6 +40,7 @@ const Earth = ({
       .style("width", "100%")
       // .style("height", height() + "px")
       .node();
+    d3.select(dom.parentNode).style("max-width", width + "px");
     const context = dom.getContext("2d");
     const path = d3.geoPath(projection, context);
 
@@ -187,18 +194,7 @@ const Earth = ({
   }, []);
 
   return (
-    <div
-      className={`w-full 
-      my-2 self-center`}
-      style={{
-        maxWidth: !isServer ? (window.innerWidth > 500 ? 500 : 300) : 500,
-      }}
-      // ${
-      // typeof window !== "undefined" && window.innerWidth > 500
-      // ? "max-w-[500px]"
-      // : "max-w-[300px]"
-      // }
-    >
+    <div className={`w-full my-2 self-center`}>
       <canvas id="DOM" className="cursor-move"></canvas>
     </div>
   );
